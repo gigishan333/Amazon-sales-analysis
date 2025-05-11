@@ -112,21 +112,20 @@ GROUP BY SKU, ASIN
 ORDER BY total_sold DESC
 LIMIT 10;
 
--- Additional Analytical Queries
--- Order Status Distribution
+-- 11. Order Status Distribution
 SELECT Status, COUNT(*) AS OrderCount
 FROM sales_data
 GROUP BY Status
 ORDER BY OrderCount DESC;
 
--- Category Revenue Breakdown
+-- 12. Category Revenue Breakdown
 SELECT Category, SUM(Amount) AS Revenue
 FROM sales_data
 WHERE Status = 'Shipped'
 GROUP BY Category
 ORDER BY Revenue DESC;
 
--- Top Cities by Revenue
+-- 13. Top Cities by Revenue
 SELECT `ship-city`, SUM(Amount) AS Revenue
 FROM sales_data
 WHERE Status = 'Shipped'
@@ -134,14 +133,14 @@ GROUP BY `ship-city`
 ORDER BY Revenue DESC
 LIMIT 10;
 
--- Fulfillment Performance
+-- 14. Fulfillment Performance
 SELECT `fulfilled-by`, COUNT(*) AS Orders, SUM(Amount) AS Revenue
 FROM sales_data
 WHERE Status = 'Shipped'
 GROUP BY `fulfilled-by`
 ORDER BY Revenue DESC;
 
--- Monthly Revenue Pattern
+-- 15. Monthly Revenue Pattern
 SELECT 
     SUBSTR(Date, 4, 2) AS Month,
     SUM(Amount) AS Revenue
@@ -150,7 +149,7 @@ WHERE Status = 'Shipped'
 GROUP BY Month
 ORDER BY Month;
 
--- B2B vs B2C Analysis
+-- 16. B2B vs B2C Analysis
 SELECT B2B, COUNT(*) AS Orders, SUM(Amount) AS Revenue
 FROM sales_data
 GROUP BY B2B;
